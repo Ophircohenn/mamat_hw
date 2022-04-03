@@ -9,5 +9,20 @@ cat tmp.txt | wc -l > results.csv
 
 while read -r line;
 	do
-		echo "$line" >> results.csv
+		wget $line -q -O tmp2  
+		COUNT1=$(grep -o "Netanyahu" tmp2 | wc -w) 
+		COUNT2=$(grep -o "Bennett" tmp2 | wc -w) 
+		
+		if [ $COUNT1 -eq 0 -a $COUNT2 -eq 0 ]
+			then
+				echo "$line,-" >> results.csv
+		else
+			echo "$line,Netanyahu,$COUNT1,Bennett,$COUNT2" >> results.csv
+		fi
 	done < tmp.txt
+	
+rm tmp2
+rm tmp.txt
+	
+
+
