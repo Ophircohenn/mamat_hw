@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+wget  https://www.ynetnews.com/category/3082 -q
+
 grep -o "https://www.ynetnews.com/article/........." 3082 | sort |uniq > tmp.txt
 
 echo > results.csv
@@ -23,6 +26,7 @@ while read -r line;
 	
 rm tmp2
 rm tmp.txt
+rm 3082
 	
 
 
