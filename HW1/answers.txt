@@ -1,0 +1,5 @@
+a. A long time, can take several hours. 
+b. we can make an automation to manage our moodle tasks
+we learned that bash is a comfortble language for working with files.
+c.we can run the script in a while loop and add #sleep for one hour to make a delay.
+we can use uniq command to check which articles are new and run the script only on them
