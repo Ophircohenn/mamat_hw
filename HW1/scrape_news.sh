@@ -1,32 +1,39 @@
 #!/bin/bash
 
 
-wget  https://www.ynetnews.com/category/3082 -q
+NAME1=Netanyahu
+NAME2=Bennett
+ADDERESS=https://www.ynetnews.com/category/3082
+TARGET_ADDERESS=https://www.ynetnews.com/article/.........
+TARGET_FILE=3082
+RESULTS_FILE=results.csv
 
-grep -o "https://www.ynetnews.com/article/........." 3082 | sort |uniq > tmp.txt
+wget  $ADDERESS -q
 
-echo > results.csv
+grep -o "$TARGET_ADDERESS" $TARGET_FILE | sort |uniq > tmp.txt
 
-cat tmp.txt | wc -l > results.csv
+echo > $RESULTS_FILE
+
+cat tmp.txt | wc -l > $RESULTS_FILE
 
 
 while read -r line;
 	do
 		wget $line -q -O tmp2  
-		COUNT1=$(grep -o "Netanyahu" tmp2 | wc -w) 
-		COUNT2=$(grep -o "Bennett" tmp2 | wc -w) 
+		COUNT1=$(grep -o "$NAME1" tmp2 | wc -w) 
+		COUNT2=$(grep -o "$NAME2" tmp2 | wc -w) 
 		
 		if [ $COUNT1 -eq 0 -a $COUNT2 -eq 0 ]
 			then
-				echo "$line,-" >> results.csv
+				echo "$line,-" >> $RESULTS_FILE
 		else
-			echo "$line,Netanyahu,$COUNT1,Bennett,$COUNT2" >> results.csv
+			echo "$line,$NAME1,$COUNT1,$NAME2,$COUNT2" >> $RESULTS_FILE
 		fi
 	done < tmp.txt
 	
 rm tmp2
 rm tmp.txt
-rm 3082
+rm $TARGET_FILE
 	
 
 
