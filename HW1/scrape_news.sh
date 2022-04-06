@@ -4,13 +4,13 @@
 NAME1=Netanyahu
 NAME2=Bennett
 ADDERESS=https://www.ynetnews.com/category/3082
-TARGET_ADDERESS=https://www.ynetnews.com/article/.........
+TARGET_ADDERESS=https://www.ynetnews.com/article/
 TARGET_FILE=3082
 RESULTS_FILE=results.csv
 
 wget  $ADDERESS -q
 
-grep -o "$TARGET_ADDERESS" $TARGET_FILE | sort |uniq > tmp.txt
+grep -o "$TARGET_ADDERESS[0-9A-Za-z]\+" $TARGET_FILE | sort |uniq > tmp.txt
 
 echo > $RESULTS_FILE
 
