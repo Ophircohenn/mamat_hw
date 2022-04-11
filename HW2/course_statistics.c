@@ -21,7 +21,8 @@ int main(int argc, char* argv[]) {
     int hist[101] = {0};
     int min = 100, max = 0, mid = 0,counter2 = 0, counter3 = 0;
     double avg=0;
-
+//reading the grades from the text file as integers and calculating min, max
+//building a histogram
     while (fscanf(fp2, "%d", &tmp_grade) > 0)
     {
         sum_of_grades += tmp_grade;
@@ -32,6 +33,7 @@ int main(int argc, char* argv[]) {
     }
 
     avg = (double)sum_of_grades /counter;
+//scanning histogram to calculate mid and pass percentage
     for (size_t i = 0; i < 101; i++)
     {
         counter2 += hist[i];
@@ -46,6 +48,7 @@ int main(int argc, char* argv[]) {
         counter3 += hist[i];
     }
     pass = (double)(((double)(counter3*100))/ counter);
+//writing to the output text file
     fprintf(fp,"num of students = %d\n",counter);
     fprintf(fp,"avg = %.3f\n",avg);
     fprintf(fp,"the median is - %d\n",mid);

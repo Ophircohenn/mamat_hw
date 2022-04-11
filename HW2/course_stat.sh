@@ -1,18 +1,18 @@
 #!/bin/bash
 
-
+# checking number of arguments
 if [ "$#" != 1 ] ; then
-echo "Wrong number of arguments" > our_out1.txt;
-#echo "Wrong number of arguments" > 2;
+echo "Wrong number of arguments" >&2
 exit;
 fi
 
+#checking if the text file exists
 if [ ! -f $1.txt ] ; then
-echo "Course not found" > our_out2.txt;
-#echo "Course not found" > 2;
+echo "Course not found" >&2
 exit;
 fi
 
+#checking if dir exist
 if [ -d $1_stat ] ; then
 rm -r $1_stat;
 fi
