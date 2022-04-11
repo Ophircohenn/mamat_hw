@@ -17,26 +17,20 @@ int main(int argc, char* argv[]) {
     double pass=0;
     int sum_of_grades = 0;
     int tmp_grade = 0;
-    //printf("\n%d", &tmp_grade);
+
     int hist[101] = {0};
     int min = 100, max = 0, mid = 0,counter2 = 0, counter3 = 0;
     double avg=0;
-   // printf("before while\n");
-    //int x=fscanf(fp2, "%d", &tmp_grade);
-    //printf("x = %d", &tmp_grade);
+
     while (fscanf(fp2, "%d", &tmp_grade) > 0)
     {
-        //fscanf(fp2, "%s", tmp_grade);
-        //fread(tmp_grade, sizeof(int), 1, fp2);
-
-        printf("%d\n", tmp_grade);
         sum_of_grades += tmp_grade;
         counter++;
         hist[tmp_grade]++;
         min= (min > tmp_grade ? tmp_grade : min);
         max=(max < tmp_grade ? tmp_grade : max);
     }
-   // printf("after while \n %d\n ",sum_of_grades);
+
     avg = (double)sum_of_grades /counter;
     for (size_t i = 0; i < 101; i++)
     {
@@ -52,7 +46,6 @@ int main(int argc, char* argv[]) {
         counter3 += hist[i];
     }
     pass = (double)(((double)(counter3*100))/ counter);
-    //printf("/n--%.2f--\n%d\n%d",pass,counter3,counter);
     fprintf(fp,"num of students = %d\n",counter);
     fprintf(fp,"avg = %.3f\n",avg);
     fprintf(fp,"the median is - %d\n",mid);
@@ -60,10 +53,13 @@ int main(int argc, char* argv[]) {
     fprintf(fp,"pass rate = %.2f%%\n",pass);
     for (size_t i = 1; i < 101; i++)
        {
-    	fprintf(fp,"%d ",hist[i]);
     	if(!(i%10))
     	{
-    		fprintf(fp,"\n");
+    		fprintf(fp,"%d\n",hist[i]);
+    	}
+    	else
+    	{
+    		fprintf(fp,"%d ",hist[i]);
     	}
        }
     fclose(fp);
