@@ -30,7 +30,7 @@ void student_destroy(void* student);
 void grades_destroy(Grades grades);
 void course_grade_destroy (void* course_grade);
 int course_grade_clone(void* course_grade, void** out);
-int grades_add_student(struct grades *grades, const char *name, int id);
+int grades_add_student(Grades grades, const char *name, int id);
 
 Grades grades_init()
 {
@@ -88,7 +88,7 @@ int grades_add_student(Grades grades, const char* name, int id)
 
 
 
-int grades_add_grade(struct grades *grades,
+int grades_add_grade(Grades grades,
                      const char *name,
                      int id,
                      int grade)
@@ -217,7 +217,7 @@ int course_grade_clone(void* course_grade, void** out)
 }
 
 
-float grades_calc_avg(struct grades *grades, int id, char **out)
+float grades_calc_avg(Grades grades, int id, char **out)
 {
 	struct iterator* itr=NULL;
 	struct iterator* itr2=NULL;
@@ -276,7 +276,7 @@ float grades_calc_avg(struct grades *grades, int id, char **out)
 }
 
 
-int grades_print_student(struct grades *grades, int id)
+int grades_print_student(Grades grades, int id)
 {
 	struct iterator* itr=NULL;
 	struct iterator* itr2=NULL;
@@ -321,7 +321,7 @@ int grades_print_student(struct grades *grades, int id)
 	return 0;
 
 }
-int grades_print_all(struct grades *grades)
+int grades_print_all(Grades grades)
 {
 	struct iterator* itr=NULL;
 	if(grades==NULL)
