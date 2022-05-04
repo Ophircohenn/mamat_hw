@@ -31,7 +31,7 @@ void grades_destroy(Grades grades);
 void course_grade_destroy (void* course_grade);
 int course_grade_clone(void* course_grade, void** out);
 int grades_add_student(Grades grades, const char *name, int id);
-
+void handle_failure();
 Grades grades_init()
 {
 	Grades my_grades=NULL;
@@ -45,13 +45,15 @@ void grades_destroy(Grades grades)
 {
 	struct iterator* itr=list_begin(grades->student_list);
 	Student s_student=list_get(itr);
-
 	list_destroy(grades->student_list);
-	//grades=NULL;
 	free((void*)grades);
 }
 
-
+void handle_failure()
+{
+	printf("Error on Malloc");
+	exit(0);
+}
 int grades_add_student(Grades grades, const char* name, int id)
 {
 	if(grades == NULL)
@@ -70,12 +72,15 @@ int grades_add_student(Grades grades, const char* name, int id)
 			new_student=list_get(itr);
 		}
 	new_student=malloc(sizeof(struct student));
+	if(new_student == NULL)
+		{
+			handle_failure();
+		}
 	new_student->id=id;
 	new_student->name = (char*)malloc(sizeof(char)*(strlen(name)+1));
 		if(new_student->name == NULL)
 		{
-			printf("Error on Malloc");
-					exit(0);
+			handle_failure();
 		}
 	strcpy(new_student->name,name);
 	new_student->grades_of_student=
@@ -127,12 +132,16 @@ int grades_add_grade(Grades grades,
 
 	//if there is no course with same name
 	course=malloc(sizeof(struct course_grade));
+	if(course == NULL)
+		{
+			handle_failure();
+		}
+
 	course->grade=grade;
 	course->course_name=(char*)malloc(sizeof(char)*(strlen(name)+1));
 	if(course->course_name == NULL)
 		{
-			printf("Error on Malloc");
-			exit(0);
+			handle_failure();
 		}
 	strcpy(course->course_name,name);
 	list_push_back(s_student->grades_of_student,(void*)course);
@@ -151,12 +160,15 @@ void student_destroy(void* student)
 	list_destroy(tmp->grades_of_student);
 	student=NULL;
 	free(tmp->name);
-	//free(student);
 	free(tmp);
 }
 int student_clone(void* student, void** out)
 {
 	*out=malloc(sizeof(struct student));
+	if(*out == NULL)
+		{
+			handle_failure();
+		}
 	Student* tmp=(Student*)out;
 	Student tmp2=student;
 	Course_Grade o_head=NULL;
@@ -165,10 +177,9 @@ int student_clone(void* student, void** out)
 	(*tmp)->id=tmp2->id;
 	(*tmp)->name = (char*)malloc(sizeof(char)*strlen(tmp2->name)+1);
 	if((*tmp)->name == NULL)
-				{
-					printf("Error on Malloc");
-							exit(0);
-				}
+		{
+			handle_failure();
+		}
 	strcpy((*tmp)->name,tmp2->name);
 	itr=list_begin(tmp2->grades_of_student);
 	o_head=list_get(itr);
@@ -189,7 +200,6 @@ void course_grade_destroy (void* course_grade)
 	Course_Grade tmp=course_grade;
 	free(tmp->course_name);
 	course_grade=NULL;
-	//free(course_grade);
 	free(tmp);
 }
 int course_grade_clone(void* course_grade, void** out)
@@ -198,20 +208,18 @@ int course_grade_clone(void* course_grade, void** out)
 	Course_Grade tmp2=course_grade;
 
 	(*out) =malloc(sizeof(struct course_grade));
-	if((*tmp) == NULL)
+	if((*out) == NULL)
 	{
-		printf("Error on malloc");
-				exit(0);
+		handle_failure();
 	}
 	(*tmp)->grade = tmp2->grade;
 
 	(*tmp)->course_name =
 			(char*)malloc(sizeof(char)*(strlen(tmp2->course_name)+1));
 		if((*tmp)->course_name == NULL)
-			{
-				printf("Error on Malloc");
-						exit(0);
-			}
+		{
+			handle_failure();
+		}
 	strcpy((*tmp)->course_name,tmp2->course_name);
 	return 0;
 }
@@ -247,8 +255,7 @@ float grades_calc_avg(Grades grades, int id, char **out)
 	*out=(char*)malloc(sizeof(char)*(strlen(s_student->name)+1));
 	if(*out== NULL)
 	{
-		printf("Error on Malloc");
-				exit(0);
+		handle_failure();
 	}
 	strcpy(*out,s_student->name);
 	int counter=0;
@@ -313,7 +320,7 @@ int grades_print_student(Grades grades, int id)
 		course=list_get(itr2);
 		if(course!=NULL)
 		{
-			printf(",");/// YAKKKKK
+			printf(",");
 		}
 	}
 
@@ -340,12 +347,12 @@ int grades_print_all(Grades grades)
 		printf("%s %d:",s_student->name,s_student->id);
 		while(course!=NULL)
 		{
-			printf(" %s %d",course->course_name,course->grade);///!!!//
+			printf(" %s %d",course->course_name,course->grade);
 			itr2=list_next(itr2);
 			course=list_get(itr2);
 			if(course!=NULL)
 			{
-				printf(",");/// YAKKKKK
+				printf(",");
 			}
 		}
 
