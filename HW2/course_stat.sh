@@ -21,7 +21,7 @@ mkdir $1_stat;
 
 awk '{ print $2 }' $1.txt | tail -n +2 > grades.txt
 
-gcc -g -Wall course_statistics.c -o prog.exe
+gcc -g -Wall calc_statistics.c -o prog.exe
 
 ./prog.exe
 

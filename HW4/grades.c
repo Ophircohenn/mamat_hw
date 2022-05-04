@@ -30,7 +30,7 @@ void student_destroy(void* student);
 void grades_destroy(Grades grades);
 void course_grade_destroy (void* course_grade);
 int course_grade_clone(void* course_grade, void** out);
-int grades_add_student(struct grades *grades, const char *name, int id);
+int grades_add_student(Grades grades, const char *name, int id);
 
 Grades grades_init()
 {
@@ -45,13 +45,7 @@ void grades_destroy(Grades grades)
 {
 	struct iterator* itr=list_begin(grades->student_list);
 	Student s_student=list_get(itr);
-	/*while(itr != NULL)
-	{
-		itr=list_next(itr);
-		student_destroy((void*)s_student);
-		s_student=list_get(itr);
-	}
-	*/
+
 	list_destroy(grades->student_list);
 	//grades=NULL;
 	free((void*)grades);
@@ -79,23 +73,22 @@ int grades_add_student(Grades grades, const char* name, int id)
 	new_student->id=id;
 	new_student->name = (char*)malloc(sizeof(char)*(strlen(name)+1));
 		if(new_student->name == NULL)
-					{
-						printf("Error on Malloc");
-								exit(0);
-					}
+		{
+			printf("Error on Malloc");
+					exit(0);
+		}
 	strcpy(new_student->name,name);
 	new_student->grades_of_student=
 			list_init(course_grade_clone,course_grade_destroy);
 	list_push_back(grades->student_list,new_student);
 	student_destroy((void*)new_student);
-	//free((void*)new_student->name);
-	//free((void*)new_student);
+
 	return 0;
 }
 
 
 
-int grades_add_grade(struct grades *grades,
+int grades_add_grade(Grades grades,
                      const char *name,
                      int id,
                      int grade)
@@ -144,8 +137,7 @@ int grades_add_grade(struct grades *grades,
 	strcpy(course->course_name,name);
 	list_push_back(s_student->grades_of_student,(void*)course);
 	course_grade_destroy((void*)course);
-	//free((void*)course->course_name);
-	//free((void*)course);
+
 	return 0;
 
 }
@@ -225,7 +217,7 @@ int course_grade_clone(void* course_grade, void** out)
 }
 
 
-float grades_calc_avg(struct grades *grades, int id, char **out)
+float grades_calc_avg(Grades grades, int id, char **out)
 {
 	struct iterator* itr=NULL;
 	struct iterator* itr2=NULL;
@@ -284,7 +276,7 @@ float grades_calc_avg(struct grades *grades, int id, char **out)
 }
 
 
-int grades_print_student(struct grades *grades, int id)
+int grades_print_student(Grades grades, int id)
 {
 	struct iterator* itr=NULL;
 	struct iterator* itr2=NULL;
@@ -329,7 +321,7 @@ int grades_print_student(struct grades *grades, int id)
 	return 0;
 
 }
-int grades_print_all(struct grades *grades)
+int grades_print_all(Grades grades)
 {
 	struct iterator* itr=NULL;
 	if(grades==NULL)
@@ -339,13 +331,27 @@ int grades_print_all(struct grades *grades)
 	Student s_student=NULL;//selected student
 	itr=list_begin(grades->student_list);
 	s_student=list_get(itr);
+	Course_Grade course=NULL;
+	struct iterator* itr2=NULL;
 	while(s_student != NULL)
 		{
-			grades_print_student(grades,s_student->id);
-			itr=list_next(itr);
-			s_student=list_get(itr);
+		itr2=list_begin(s_student->grades_of_student);
+		course=list_get(itr2);
+		printf("%s %d:",s_student->name,s_student->id);
+		while(course!=NULL)
+		{
+			printf(" %s %d",course->course_name,course->grade);///!!!//
+			itr2=list_next(itr2);
+			course=list_get(itr2);
+			if(course!=NULL)
+			{
+				printf(",");/// YAKKKKK
+			}
+		}
+
+		printf("\n");
+		itr=list_next(itr);
+		s_student=list_get(itr);
 		}
 	return 0;
 }
-
-
