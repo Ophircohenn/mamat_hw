@@ -34,8 +34,8 @@ int grades_add_student(Grades grades, const char *name, int id);
 void handle_failure();
 Grades grades_init()
 {
-	Grades my_grades=NULL;
-	my_grades=malloc(sizeof(struct grades));
+	//Grades my_grades=NULL;
+	Grades my_grades=malloc(sizeof(struct grades));
 	my_grades->student_list=list_init(student_clone,student_destroy);
 	return my_grades;
 }
@@ -227,17 +227,17 @@ int course_grade_clone(void* course_grade, void** out)
 
 float grades_calc_avg(Grades grades, int id, char **out)
 {
-	struct iterator* itr=NULL;
-	struct iterator* itr2=NULL;
+	//struct iterator* itr=NULL;
+	//struct iterator* itr2=NULL;
 
 	if(grades==NULL)
 		{
 			out=NULL;
 			return -1;
 		}
-	Student s_student=NULL;//selected student
-	itr=list_begin(grades->student_list);
-	s_student=list_get(itr);
+	//Student s_student=NULL;//selected student
+	struct iterator* itr=list_begin(grades->student_list);
+	Student s_student=list_get(itr);//selected student
 	while(s_student != NULL)
 	{
 		if(s_student->id==id)
@@ -261,9 +261,9 @@ float grades_calc_avg(Grades grades, int id, char **out)
 	int counter=0;
 	int sum=0;
 	float avg=0;
-	Course_Grade course=NULL;
-	itr2=list_begin(s_student->grades_of_student);
-	course=list_get(itr2);
+	//Course_Grade course=NULL;
+	struct iterator* itr2=list_begin(s_student->grades_of_student);
+	Course_Grade course=list_get(itr2);
 	while(course != NULL)
 	{
 		counter++;
@@ -285,15 +285,15 @@ float grades_calc_avg(Grades grades, int id, char **out)
 
 int grades_print_student(Grades grades, int id)
 {
-	struct iterator* itr=NULL;
-	struct iterator* itr2=NULL;
+	//struct iterator* itr=NULL;
+	//struct iterator* itr2=NULL;
 	if(grades==NULL)
 		{
 			return -1;
 		}
-	Student s_student=NULL;//selected student
-	itr=list_begin(grades->student_list);
-	s_student=list_get(itr);
+	struct iterator* itr=list_begin(grades->student_list);
+	Student s_student=list_get(itr);//selected student
+	//s_student=list_get(itr);
 	while(s_student != NULL)
 	{
 		if(s_student->id==id)
@@ -308,10 +308,9 @@ int grades_print_student(Grades grades, int id)
 		return -1;
 	}
 	// we coutinue only if ID found
-	Course_Grade course=NULL;
-
-	itr2=list_begin(s_student->grades_of_student);
-	course=list_get(itr2);
+	//Course_Grade course=NULL;
+	struct iterator* itr2=list_begin(s_student->grades_of_student);
+	Course_Grade course=list_get(itr2);
 	printf("%s %d:",s_student->name,s_student->id);
 	while(course!=NULL)
 	{
@@ -330,14 +329,14 @@ int grades_print_student(Grades grades, int id)
 }
 int grades_print_all(Grades grades)
 {
-	struct iterator* itr=NULL;
+	//struct iterator* itr=NULL;
 	if(grades==NULL)
 	{
 		return -1;
 	}
-	Student s_student=NULL;//selected student
-	itr=list_begin(grades->student_list);
-	s_student=list_get(itr);
+	 //s_student=NULL;//selected student
+	struct iterator* itr=list_begin(grades->student_list);
+	Student s_student=list_get(itr);
 	Course_Grade course=NULL;
 	struct iterator* itr2=NULL;
 	while(s_student != NULL)
