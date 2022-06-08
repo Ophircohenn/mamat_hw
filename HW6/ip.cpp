@@ -9,19 +9,25 @@
 //return when succes
 bool Ip::match_value(String value) const //value =192.168.1.1
 {
-
-	String** packet_adr=new String*();
-	size_t* size_p_a=new size_t();
-	value.split(".",packet_adr, size_p_a);
-	int bin_adr_val=
-			((*packet_adr)[0].to_integer()<<24
-			| (*packet_adr)[1].to_integer()<<16
-			|(*packet_adr)[2].to_integer()<<8
-			|(*packet_adr)[3].to_integer());
-	bin_adr_val=bin_adr_val>>(32-this->mask);
-	delete[](*packet_adr);
-	delete(size_p_a);
-	return (bin_adr_val==this->bin_ip);
+	if(mask==0)
+	{
+		return true;
+	}
+	else
+	{
+		String** packet_adr=new String*();
+		size_t* size_p_a=new size_t();
+		value.split(".",packet_adr, size_p_a);
+		int bin_adr_val=
+				((*packet_adr)[0].to_integer()<<24
+				| (*packet_adr)[1].to_integer()<<16
+				|(*packet_adr)[2].to_integer()<<8
+				|(*packet_adr)[3].to_integer());
+		bin_adr_val=bin_adr_val>>(32-this->mask);
+		delete[](*packet_adr);
+		delete(size_p_a);
+		return (bin_adr_val==this->bin_ip);
+	}
 
 }
 
