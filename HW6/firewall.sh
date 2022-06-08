@@ -12,6 +12,6 @@ do
 	echo "$PACKET_F" | ./firewall.exe "$DST_IP"| ./firewall.exe "$SRC_IP"\
 	|./firewall.exe "$SRC_IP"| ./firewall.exe "$DST_PORT">>out.txt
 done <<< "$RULES"
-cat out.txt | sort | uniq >> final_results.txt
+cat out.txt | sort | uniq 
 
 rm out*
