@@ -32,6 +32,7 @@ bool Port::set_value(String val)
 		|| ((*range)[0].to_integer() == -1)))
 	{
 		delete[](*range);
+		delete range;
 		delete(size_range);
 		return false;
 	}
@@ -51,12 +52,14 @@ bool Port::set_value(String val)
 	{
 
 		delete[](*range);
+		delete range;
 		delete(size_range);
 		return false;
 	}
 	this->high=(unsigned short)(*range)[1].to_integer();
 	this->low=(unsigned short)(*range)[0].to_integer();
 	delete[](*range);
+	delete range;
 	delete(size_range);
 	return true;
 }

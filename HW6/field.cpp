@@ -31,11 +31,13 @@
 				(*packet_a)[i+1]=(*packet_a)[i+1].trim();
 				String tmp=(*packet_a)[i+1];
 				delete[](*packet_a);
+				delete packet_a;
 				delete(size_packet_a);
 				return (this->match_value(tmp));
     		}
 		}
 		delete[](*packet_a);
+		delete packet_a;
 		delete(size_packet_a);
     	return false;
 	}

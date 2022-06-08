@@ -26,6 +26,7 @@ int main(int argc, char** argv) //argv is rule std in is pkt
 		parse_input(rule_ip);
 		delete[](*rule_a);
 		delete(size_rule_a);
+		delete rule_a;
 		return 0;
 	}
 	else if((*rule_a)[0].equals("src-port")
@@ -36,15 +37,18 @@ int main(int argc, char** argv) //argv is rule std in is pkt
 		parse_input(rule_port);
 		delete[](*rule_a);
 		delete(size_rule_a);
+		delete rule_a;
 		return 0;
 		}
 	else
 	{
 		delete[](*rule_a);
+		delete rule_a;
 		delete(size_rule_a);
 		return 1;
 	}
 	delete[](*rule_a);
+	delete rule_a;
 	delete(size_rule_a);
 	return 0;
 }
