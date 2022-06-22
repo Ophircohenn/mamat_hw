@@ -2,7 +2,7 @@
 
 PACKET_F=$(cat | tr -d "[:blank:]")
 RULES=$(grep -o "^[^#].*" $1 | sed 's/#.*/ /' | sed '/^$/d' | tr -d "[:blank:]")
-rm final_results.txt
+#rm final_results.txt
 while read -r RULE;
 do
 	DST_IP=$(echo $RULE | grep "dst-ip[\.=0-9/]\+" -o)
