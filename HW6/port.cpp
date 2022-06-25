@@ -11,7 +11,7 @@ Port::Port(String pattern) : Field(pattern)
 
 }
 
-Port::Port(const Port &port)
+Port::Port(const Port &port) : Field(port)
 {
 	high=port.high;
 	low=port.low;

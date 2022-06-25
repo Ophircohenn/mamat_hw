@@ -38,7 +38,7 @@ Ip::Ip(String pattern) : Field(pattern)
 	this->mask=0;
 	this->bin_ip=0;
 }
-Ip::Ip(const Ip &ip)
+Ip::Ip(const Ip &ip) : Field(ip)
 {
 	this->mask=ip.mask;
 	this->address=new String*();

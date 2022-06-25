@@ -236,10 +236,12 @@ String String::trim() const
 	return new_string;
 
 }
+/*
 int String::get_len() const
 {
 	return this->length;
 }
+*/
 
 /*int main()
 {
