@@ -3,10 +3,10 @@
 #include "ip.h"
 #include "port.h"
 
-	Field::Field()
+/*	Field::Field()
 	{
 		pattern="";
-	}
+	}*/
     Field::Field(String pattern)
 	{
     	this->pattern=pattern;
@@ -41,5 +41,4 @@
 		delete(size_packet_a);
     	return false;
 	}
-
 
