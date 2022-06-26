@@ -52,4 +52,3 @@ int main(int argc, char** argv) //argv is rule std in is pkt
 	delete(size_rule_a);
 	return 0;
 }
-
