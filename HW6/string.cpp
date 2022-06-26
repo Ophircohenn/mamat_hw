@@ -162,13 +162,13 @@ void String::split(const char *delimiters, String **output, size_t *size) const
 	*output=new String[counter_of_del];
 	int counter_of_output=0;
 	int sub_string_counter=0;
-	for(size_t i=0;i<((this->length)+1);i++)
+	for(size_t i=0;i<=((this->length));i++)
 	{
 		for(int j=0;j<size_of_del;j++)
 		{
 
-			if(this->data[i]==delimiters[j] ||
-			((this->data[i]==0)&&(i<((this->length)+1))))
+			if((i==this->length) ||
+					((i<this->length)&&this->data[i]==delimiters[j]))
 			{
 				char* tmp2=new char[sub_string_counter+1];
 				//going in output[i]
@@ -209,39 +209,35 @@ int String::to_integer() const
  * @brief Remove any leading or trailing white-spaces.
  * Does not change this.
  */
-String String::trim() const
-{
-	int front=0,back=this->length-1;
-	while(this->data[front] == ' ')
-	{
-		front++;
-	}
-	while(this->data[back] == ' ')
-	{
-		back--;
-	}
-	char* tmp=new char[(back- front) + 1];
-	//tmp="";
-	for(int i=0; i<((back- front)+1);i++)
-	{
-		tmp[i]=0;
-	}
-	for(int i=front;i<=back;i++)
-	{
-		tmp[i-front]=this->data[i];
-	}
-	tmp[(back- front) + 1]=0;
-	String new_string(tmp);
-	delete[](tmp);
-	return new_string;
 
+String String::trim() const{
+	int back = ((int)length - 1);
+	int front = 0;
+	const char *new_data = data;
+	for (; front < (int)length; front++){
+		if (new_data[front] != ' '){
+			break;
+		}
+	}
+	for (; back >= 0; back--){
+		if (new_data[back] != ' '){
+			break;
+		}
+	}
+	char *tmp = new char[back-front+2]();
+	int j = 0;
+	while(front <= back){
+		tmp[j] = data[front];
+		j++;
+		front++;
+
+	}
+	String new_string = tmp;
+	delete[] tmp;
+	return new_string;
 }
-/*
-int String::get_len() const
-{
-	return this->length;
-}
-*/
+
+
 
 /*int main()
 {

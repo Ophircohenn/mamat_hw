@@ -41,4 +41,3 @@
 		delete(size_packet_a);
     	return false;
 	}
-

@@ -25,7 +25,8 @@ bool Ip::match_value(String value) const //value =192.168.1.1
 				|(*packet_adr)[3].to_integer());
 		bin_adr_val=bin_adr_val>>(32-this->mask);
 		delete[](*packet_adr);
-		delete(size_p_a);
+		delete packet_adr;
+		delete size_p_a;
 		return (bin_adr_val==this->bin_ip);
 	}
 
@@ -54,7 +55,8 @@ Ip::Ip(const Ip &ip) : Field(ip)
 Ip::~Ip()
 {
 	delete[](*address);
-	delete(size_a);
+	delete address;
+	delete size_a;
 }
 //sets the value
 //return when succes
@@ -72,7 +74,8 @@ bool Ip::set_value(String val)
 	if((*size_mask_check)>2)
 		{
 			delete[](*mask_check);
-			delete(size_mask_check);
+			delete mask_check;
+			delete size_mask_check;
 			return false;//!need checkif musthave mask
 		}
 	if((*size_mask_check)==2)
@@ -110,8 +113,8 @@ bool Ip::set_value(String val)
 			(*(this->address))[3].to_integer());
 	this->bin_ip=this->bin_ip>>(32-(this->mask));
 	delete[](*mask_check);
-	delete(size_mask_check);
+	delete mask_check;
+	delete size_mask_check;
 	return true;
 }
-
 
